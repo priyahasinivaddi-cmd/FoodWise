@@ -1,0 +1,14 @@
+{
+  "name": "food-waste-assistant",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Basic frontend and backend for an institutional food-waste reduction assistant",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

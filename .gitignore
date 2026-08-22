@@ -1,0 +1,9 @@
+data/*.json
+data/*.db*
+output/
+tmp/
+node_modules/
+.env
+.env.*
+.DS_Store
+Thumbs.db

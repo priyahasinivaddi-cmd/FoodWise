@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Record, segregate and reduce institutional food waste.">
+  <title>FoodWise — Waste Reduction Assistant</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css?v=20260822">
+</head>
+<body>
+  <section id="login-screen" class="login-screen">
+    <div class="login-home">
+      <div class="login-story"><div class="login-brand"><span class="brand-mark">F</span><strong>FoodWise</strong></div><span class="pill">AI-powered cafeteria sustainability</span><h2>Measure waste.<br>Improve every meal.</h2><p>FoodWise helps cafeterias classify waste, guide segregation, understand customer feedback and turn patterns into practical reduction actions.</p><div class="home-benefits"><div><span>01</span><strong>Identify</strong><small>Capture and classify food waste.</small></div><div><span>02</span><strong>Understand</strong><small>Connect waste with customer experience.</small></div><div><span>03</span><strong>Reduce</strong><small>Track actions and measurable results.</small></div></div><div class="sdg-home">SDG 12 · Responsible Consumption and Production</div></div>
+      <form id="login-form" class="login-card">
+        <span class="eyebrow">Workspace access</span><h2 id="login-title">Welcome back</h2><p id="login-copy">Choose your role to continue.</p>
+        <div id="role-login-step">
+          <label id="login-role-label">Your role<select id="login-role" name="role"><option value="customer">Customer / student</option><option value="staff">Canteen staff</option><option value="manager">Canteen manager</option></select></label>
+          <button id="continue-login" class="primary" type="button">Continue <span>→</span></button>
+        </div>
+        <div id="details-login-step" hidden>
+          <div id="staff-auth-choice" class="auth-choice" hidden>
+            <button id="staff-login-mode" class="auth-mode active" type="button">Login</button>
+            <button id="staff-register-mode" class="auth-mode" type="button">Register</button>
+          </div>
+          <label id="customer-name-label">Customer name<input name="customerName" placeholder="Enter your name"></label>
+          <label id="setup-name-label" hidden>Your name<input name="name" placeholder="Manager name"></label>
+          <label id="username-label" hidden>Name<input name="username" autocomplete="username" placeholder="Enter your name"></label>
+          <label id="password-label" hidden>Password<input name="password" type="password" minlength="8" autocomplete="current-password" placeholder="At least 8 characters"></label>
+          <button id="login-submit" class="primary" type="submit">Enter FoodWise <span>→</span></button>
+          <button id="back-to-role" class="text-button login-back" type="button">← Change role</button>
+        </div>
+        <small id="login-note">Accounts are protected by password hashing and expiring sessions.</small>
+      </form>
+    </div>
+  </section>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#dashboard" aria-label="FoodWise home"><span class="brand-mark">F</span><span>FoodWise</span></a>
+      <nav aria-label="Main navigation">
+        <button class="nav-link active" data-view="dashboard"><span>⌂</span> Overview</button>
+        <button class="nav-link" data-view="record"><span>＋</span> Record waste</button>
+        <button class="nav-link" data-view="history"><span>◷</span> History</button>
+        <button class="nav-link" data-view="feedback"><span>♡</span> Feedback</button>
+        <button class="nav-link manager-only" data-view="reviews"><span>☰</span> Reviews</button>
+        <button class="nav-link staff-manager" data-view="operations"><span>▦</span> Operations</button>
+        <button class="nav-link staff-manager" data-view="inventory"><span>□</span> Inventory</button>
+        <button class="nav-link manager-only" data-view="admin"><span>⚙</span> Admin</button>
+      </nav>
+      <div class="role-switcher">
+        <small>Active workspace</small>
+        <select id="role-select" aria-label="Current user role" disabled><option value="manager">Canteen manager</option><option value="staff">Canteen staff</option><option value="customer">Customer</option></select>
+        <button id="logout-button" class="logout-button">Sign out</button>
+      </div>
+      <div class="sdg-card">
+        <span>SDG 12</span>
+        <strong>Responsible consumption</strong>
+        <p>Small measurements. Meaningful reductions.</p>
+      </div>
+    </aside>
+
+    <main>
+      <header class="topbar">
+        <div><span class="eyebrow" id="welcome-label">Cafeteria workspace</span><h1 id="page-title">Waste overview</h1></div>
+        <button class="primary compact" data-go-record>＋ Record waste</button>
+      </header>
+
+      <section id="dashboard" class="view active">
+        <div class="hero">
+          <div><span class="pill">This month</span><h2>Turn today’s leftovers into tomorrow’s decisions.</h2><p>Track what is wasted, guide segregation, and spot the patterns that matter.</p></div>
+          <button class="hero-button" data-go-record>Start a new record <span>→</span></button>
+        </div>
+
+        <div class="stats-grid">
+          <article class="stat"><span class="stat-icon green">↘</span><div><small>Total recorded waste</small><strong id="total-kg">0 kg</strong><span>Measured entries only</span></div></article>
+          <article class="stat"><span class="stat-icon amber">◎</span><div><small>Waste per 100 meals</small><strong id="per-100">0 kg</strong><span id="meals-count">No meals recorded</span></div></article>
+          <article class="stat"><span class="stat-icon blue">♻</span><div><small>Correct segregation</small><strong id="segregation-rate">0%</strong><span id="diverted">0 diverted batches</span></div></article>
+        </div>
+
+        <article class="target-card">
+          <div><span class="eyebrow">Weekly reduction target</span><h3><span id="weekly-kg">0</span> kg recorded this week</h3></div>
+          <div class="target-progress"><div class="bar-track"><div class="bar" id="target-bar"></div></div><small id="target-copy">Set a target to start tracking progress.</small></div>
+          <label>Target (kg)<input id="target-input" type="number" min="0.1" step="0.1" placeholder="e.g. 10"></label>
+          <button id="save-target" class="secondary-button">Save target</button>
+        </article>
+
+        <div class="dashboard-grid">
+          <article class="panel">
+            <div class="panel-heading"><div><span class="eyebrow">Category breakdown</span><h3>Where waste is coming from</h3></div></div>
+            <div id="category-chart" class="category-chart"><div class="empty-small">Add your first record to see the breakdown.</div></div>
+          </article>
+          <article class="panel insight-panel">
+            <span class="spark">✦</span><span class="eyebrow">Reduction insight</span><h3 id="insight-title">Your insights will appear here</h3><p id="insight-copy">Once you record several waste batches, FoodWise will highlight the items creating the most measurable waste.</p><button class="text-button" data-go-history>Review records →</button>
+          </article>
+        </div>
+        <div class="dashboard-grid analytics-row">
+          <article class="panel"><div class="panel-heading"><div><span class="eyebrow">Waste sources</span><h3>Measured kilograms by source</h3></div></div><div id="source-chart" class="category-chart"></div></article>
+          <article class="panel"><div class="panel-heading"><div><span class="eyebrow">Avoidability</span><h3>Reduction opportunity</h3></div></div><div class="avoidable-grid"><div><strong id="avoidable-kg">0 kg</strong><span>Avoidable</span></div><div><strong id="unavoidable-kg">0 kg</strong><span>Unavoidable</span></div></div><div id="trend-copy" class="trend-copy">Record another week to compare trends.</div></article>
+        </div>
+        <div class="dashboard-grid analytics-row">
+          <article class="panel"><div class="panel-heading"><div><span class="eyebrow">Meal periods</span><h3>Waste by service period</h3></div></div><div id="meal-chart" class="category-chart"></div></article>
+          <article class="panel"><div class="panel-heading"><div><span class="eyebrow">Daily pattern</span><h3>Waste by weekday</h3></div></div><div id="day-chart" class="category-chart"></div><div id="monthly-copy" class="trend-copy">Monthly comparison will appear here.</div></article>
+        </div>
+        <article class="panel alerts-panel"><div class="panel-heading"><div><span class="eyebrow">Manager alerts</span><h3>Unusual waste activity</h3></div></div><div id="alerts-list"></div></article>
+        <article class="panel feedback-summary-panel"><div class="panel-heading"><div><span class="eyebrow">Customer voice</span><h3>Meal feedback</h3></div><div class="report-actions"><button class="text-button" data-go-reviews>View feedback →</button><a class="secondary-button pdf-button" href="/api/report.pdf" download>Download PDF</a></div></div><div class="feedback-stats"><div><strong id="feedback-count">0</strong><span>Responses</span></div><div><strong id="food-rating">0/5</strong><span>Food rating</span></div><div><strong id="portion-rating">0/5</strong><span>Portion rating</span></div><div><strong id="smaller-portions">0</strong><span>Want smaller portions</span></div><div><strong id="over-portions">0</strong><span>Report over portion</span></div></div><p id="feedback-insight" class="trend-copy">Customer patterns will appear after feedback is submitted.</p></article>
+        <article class="panel action-panel"><div class="panel-heading"><div><span class="eyebrow">Improvement tracking</span><h3>Manager action log</h3></div></div><form id="action-form" class="action-form"><input name="title" required placeholder="Action, e.g. Offer small rice portions"><input name="startDate" type="date" required><select name="targetMetric"><option>Reduce food waste</option><option>Reduce over-portion reports</option><option>Improve food rating</option><option>Improve portion rating</option></select><input name="baseline" type="number" step="0.1" placeholder="Baseline"><button class="secondary-button">Add action</button></form><div id="actions-list" class="actions-list"></div></article>
+        <div class="dashboard-grid analytics-row">
+          <article class="panel"><div class="panel-heading"><div><span class="eyebrow">Dish comparison</span><h3>Rating versus measured waste</h3></div></div><div id="dish-comparison" class="dish-comparison"></div></article>
+          <article class="panel"><div class="panel-heading"><div><span class="eyebrow">Weekly communication</span><h3>Manager sustainability update</h3></div><button id="copy-weekly-update" class="secondary-button">Copy update</button></div><div id="weekly-update" class="weekly-update"></div></article>
+        </div>
+        <article class="panel recent-panel"><div class="panel-heading"><div><span class="eyebrow">Latest activity</span><h3>Recent waste records</h3></div><button class="text-button" data-go-history>View all →</button></div><div id="recent-list" class="records-list"></div></article>
+      </section>
+
+      <section id="record" class="view">
+        <div class="stepper" aria-label="Recording progress"><div class="step active" data-step-indicator="1"><span>1</span> Capture</div><i></i><div class="step" data-step-indicator="2"><span>2</span> Confirm</div><i></i><div class="step" data-step-indicator="3"><span>3</span> Save</div></div>
+        <article class="form-card">
+          <div id="capture-step" class="form-step active">
+            <span class="eyebrow">Step 1 of 3</span><h2>Photograph the waste batch</h2><p>Use one clear photo. Avoid including people or personal information.</p>
+            <label class="upload-zone" for="image-input"><input id="image-input" type="file" accept="image/*" capture="environment"><div id="upload-prompt"><span class="camera-icon">▣</span><strong>Take a photo or upload an image</strong><small>JPG, PNG or WEBP · up to 6 MB</small><span class="secondary-button">Choose image</span></div><img id="image-preview" alt="Selected food waste preview"></label>
+            <div class="form-actions"><button id="analyze-button" class="primary" disabled>Analyze waste <span>→</span></button></div>
+          </div>
+
+          <form id="entry-form" class="form-step">
+            <span class="eyebrow">Step 2 of 3</span><h2>Confirm the waste details</h2><p id="demo-note" class="notice">Demo classification — please review and correct the suggested values.</p>
+            <div class="form-grid">
+              <label>Food item<input name="foodItem" required placeholder="e.g. Cooked rice"></label>
+              <label>Waste category<select name="category" required><option>Untouched surplus</option><option>Fruit & vegetable waste</option><option>Cooked food waste</option><option>Spoiled food</option><option>Non-food contamination</option></select></label>
+              <label>Waste source<select name="source" required><option value="">Select source</option><option>Kitchen preparation</option><option>Untouched surplus</option><option>Serving counter</option><option>Customer plate waste</option><option>Storage spoilage</option></select></label>
+              <label>Meal period<select name="meal"><option>Breakfast</option><option selected>Lunch</option><option>Dinner</option><option>Other</option></select></label>
+              <label>Location<input name="location" required value="Main cafeteria" placeholder="e.g. Block A cafeteria"></label>
+              <label>Meals served<input name="mealsServed" type="number" min="0" step="1" placeholder="Used for waste per 100 meals"></label>
+              <label>Quantity<div class="input-combo"><input name="quantity" type="number" min="0.01" step="0.01" required placeholder="0.00"><select name="unit"><option>kg</option><option>g</option><option>portions</option></select></div></label>
+              <label>Likely reason<select name="reason"><option>Not specified</option><option>Overproduction</option><option>Large portion size</option><option>Low demand</option><option>Quality issue</option><option>Expired or spoiled</option><option>Preparation scraps</option></select></label>
+              <label class="full">Recommended action<textarea name="action" rows="3" required></textarea></label>
+              <label class="full">Action actually taken<select name="actionTaken" required><option value="">Select what staff did</option><option>Keep free from packaging and send to the approved composting or organic-waste processing stream.</option><option>Keep packaging separate and send the food to the approved organic-waste or composting stream.</option><option>Hold separately for staff food-safety assessment. Redistribute only when storage, handling and local food-safety requirements are satisfied.</option><option>Keep separate from usable food and send to the approved organic-waste stream; do not redistribute.</option><option>Separate packaging and other contaminants from food waste, then place each material in its approved collection stream.</option><option>Disposed as general waste</option><option>Other approved action</option></select></label>
+              <label class="full">Staff notes<textarea name="notes" rows="2" placeholder="Optional observation or context"></textarea></label>
+            </div>
+            <input type="hidden" name="confidence">
+            <input type="hidden" name="aiFoodItem">
+            <input type="hidden" name="aiCategory">
+            <div class="form-actions split"><button type="button" class="secondary-button" id="back-button">← Back</button><button type="submit" class="primary">Save record <span>→</span></button></div>
+          </form>
+
+          <div id="success-step" class="form-step success-state"><span class="success-check">✓</span><span class="eyebrow">Record saved</span><h2>Waste logged successfully</h2><p>The dashboard has been updated with this entry.</p><div class="form-actions centered"><button class="secondary-button" id="another-button">Record another</button><button class="primary" data-go-dashboard>View dashboard</button></div></div>
+        </article>
+      </section>
+
+      <section id="history" class="view">
+        <div class="section-intro"><div><span class="eyebrow">Waste log</span><h2>All recorded batches</h2><p>A traceable history of what was wasted and where it went.</p></div><div class="report-actions"><a class="secondary-button pdf-button" href="/api/history.pdf" download>Download PDF</a><button class="primary" data-go-record>＋ Add record</button></div></div>
+        <article class="panel">
+          <div class="history-tools">
+            <input id="history-search" type="search" placeholder="Search food or source…">
+            <select id="history-category"><option value="">All categories</option><option>Untouched surplus</option><option>Fruit & vegetable waste</option><option>Cooked food waste</option><option>Spoiled food</option><option>Non-food contamination</option></select>
+            <button id="export-button" class="secondary-button">Export CSV</button>
+            <a id="history-pdf-link" class="secondary-button pdf-button" href="/api/history.pdf" download>Download filtered PDF</a>
+          </div>
+          <div id="history-list" class="records-list full-list"></div>
+        </article>
+      </section>
+
+      <section id="reviews" class="view">
+        <div class="section-intro"><div><span class="eyebrow">Customer voice</span><h2>Customer feedback responses</h2><p>Review meal experiences, portion concerns and improvement suggestions.</p></div><a id="feedback-pdf-link" class="secondary-button pdf-button" href="/api/feedback.pdf" download>Download filtered PDF</a></div>
+        <div class="panel review-filters"><label>From<input id="review-from" type="date"></label><label>To<input id="review-to" type="date"></label><label>Meal<select id="review-meal-type"><option value="">All meal types</option><option>Breakfast</option><option>Lunch</option><option>Snacks</option><option>Dinner</option></select></label><label>Status<select id="review-status"><option value="">All statuses</option><option>New</option><option>Reviewed</option><option>Action planned</option><option>Resolved</option></select></label><button id="clear-review-filters" class="secondary-button">Clear</button></div>
+        <div class="feedback-stats review-stats"><div><strong id="review-count">0</strong><span>Responses</span></div><div><strong id="review-food-rating">0/5</strong><span>Food rating</span></div><div><strong id="review-over-portions">0</strong><span>Over portions</span></div><div><strong id="review-top-meal">-</strong><span>Top meal type</span></div></div>
+        <div id="customer-reviews-list" class="reviews-list"></div>
+      </section>
+
+      <section id="feedback" class="view">
+        <div class="section-intro"><div><span class="eyebrow">Customer feedback</span><h2>Help us serve better portions</h2><p>Your feedback helps the cafeteria reduce plate waste and improve meals.</p></div></div>
+        <div class="feedback-layout">
+          <form id="customer-feedback-form" class="panel feedback-form">
+            <div class="form-grid">
+              <label>Serving date<input name="serviceDate" type="date" required></label>
+              <label>Type of meal<select name="mealType" required><option value="">Select meal type</option><option>Breakfast</option><option>Lunch</option><option>Snacks</option><option>Dinner</option></select></label>
+              <label class="full">Dish or menu item<input name="meal" required placeholder="e.g. Vegetable biryani"></label>
+              <label>Food rating<select name="foodRating" required><option value="">Select</option><option value="5">5 - Excellent</option><option value="4">4 - Good</option><option value="3">3 - Average</option><option value="2">2 - Poor</option><option value="1">1 - Very poor</option></select></label>
+              <label>Portion size<select name="portionRating" required><option value="5">5 - Just right</option><option value="4">4 - Mostly right</option><option value="3">3 - Acceptable</option><option value="2">2 - Too much/little</option><option value="1">1 - Very unsuitable</option></select></label>
+              <label>Portion per person<select name="portionAssessment" required><option>Right portion</option><option>Over portion</option><option>Under portion</option></select></label>
+              <label>Portion you selected<select name="portionChoice"><option>Small</option><option selected>Regular</option><option>Large</option></select></label>
+              <label>Estimated leftover<select name="leftoverAmount"><option>None</option><option>Less than one-quarter</option><option>About one-quarter</option><option>About half</option><option>Most of the portion</option></select></label>
+              <label>Dietary preference<select name="dietaryPreference"><option>No preference</option><option>Vegetarian</option><option>Vegan</option><option>Allergy-sensitive</option><option>Religious dietary preference</option><option>Other</option></select></label>
+              <label>Why was food left?<select name="leftoverReason"><option>No leftovers</option><option>Portion too large</option><option>Did not like the taste</option><option>Food quality issue</option><option>Not enough time</option><option>Dietary preference</option><option>Other</option></select></label>
+              <label>Would you choose a smaller portion?<select name="smallerPortion"><option>No</option><option>Yes</option><option>Maybe</option></select></label>
+              <label class="full">Vote for a future menu item<input name="menuVote" placeholder="e.g. Lemon rice, salad bowl, dosa"></label>
+              <label class="full">Comments<textarea name="comments" rows="4" placeholder="Optional suggestion for the cafeteria"></textarea></label>
+              <label class="full checkbox-label"><input name="anonymous" type="checkbox"> Submit anonymously</label>
+            </div>
+            <button class="primary" type="submit">Submit feedback</button>
+          </form>
+          <article class="panel customer-impact"><span class="spark">♡</span><span class="eyebrow">Why this matters</span><h3>Better feedback means less plate waste.</h3><p>We use combined responses to improve menus and portion choices. Your individual response is not used to judge you.</p><div id="feedback-thanks" class="notice">Complete the form to share your experience.</div><div class="qr-card"><strong>Scan to open the FoodWise login</strong><div id="feedback-qr"></div><a id="login-link" target="_blank" rel="noopener">Open login link</a><button id="download-qr" class="secondary-button" type="button">Download QR</button><small>The QR automatically uses the current website address.</small></div></article>
+        </div>
+      </section>
+
+      <section id="operations" class="view">
+        <div class="section-intro"><div><span class="eyebrow">Daily cafeteria operations</span><h2>Plan from actual demand</h2><p>Record preparation, serving and surplus once per meal period.</p></div></div>
+        <div class="dashboard-grid"><form id="operation-form" class="panel form-grid"><label>Date<input name="date" type="date" required></label><label>Meal type<select name="mealType" required><option>Breakfast</option><option>Lunch</option><option>Snacks</option><option>Dinner</option></select></label><label class="full">Menu<input name="menu" required placeholder="Dish names"></label><label>Meals prepared<input name="mealsPrepared" type="number" min="0"></label><label>Meals served<input name="mealsServed" type="number" min="0"></label><label>Attendance<input name="attendance" type="number" min="0"></label><label>Untouched surplus (kg)<input name="untouchedSurplusKg" type="number" min="0" step="0.1"></label><button class="primary full">Save operation</button></form><article class="panel"><div class="panel-heading"><div><span class="eyebrow">Demand forecast</span><h3>Recommended preparation</h3></div></div><div id="forecast-list"></div></article></div>
+        <article class="panel recent-panel"><div class="panel-heading"><div><span class="eyebrow">Operations history</span><h3>Recent meal periods</h3></div></div><div id="operations-list"></div></article>
+      </section>
+
+      <section id="inventory" class="view">
+        <div class="section-intro"><div><span class="eyebrow">Inventory and expiry</span><h2>Use ingredients before they spoil</h2><p>Track quantities, minimum stock and expiry dates.</p></div></div>
+        <div class="dashboard-grid"><form id="inventory-form" class="panel form-grid"><label>Ingredient<input name="name" required></label><label>Quantity<input name="quantity" type="number" min="0" step="0.1"></label><label>Unit<select name="unit"><option>kg</option><option>litres</option><option>units</option></select></label><label>Minimum stock<input name="minStock" type="number" min="0" step="0.1"></label><label class="full">Expiry date<input name="expiryDate" type="date" required></label><button class="primary full">Add inventory</button></form><article class="panel"><div class="panel-heading"><div><span class="eyebrow">Notifications</span><h3>Items needing attention</h3></div></div><div id="notifications-list"></div></article></div>
+        <article class="panel recent-panel"><div id="inventory-list"></div></article>
+      </section>
+
+      <section id="admin" class="view">
+        <div class="section-intro"><div><span class="eyebrow">Secure administration</span><h2>Accounts, privacy and impact</h2><p>Manager-only controls for the FoodWise workspace.</p></div><a class="secondary-button" href="/api/backup" download>Download backup</a></div>
+        <div class="dashboard-grid"><form id="user-form" class="panel form-grid"><span class="eyebrow full">Create account</span><label>Name<input name="name" required></label><label>Username<input name="username" required></label><label>Password<input name="password" type="password" minlength="8" required></label><label>Role<select name="role"><option>staff</option><option>customer</option><option>manager</option></select></label><button class="primary full">Create user</button></form><form id="settings-form" class="panel form-grid"><span class="eyebrow full">Privacy and impact factors</span><label>Feedback retention days<input name="feedbackRetentionDays" type="number" min="30"></label><label>Value per kg (INR)<input name="impactValuePerKg" type="number" min="0"></label><label>CO2e per kg<input name="co2PerKg" type="number" min="0" step="0.1"></label><label class="full">Restore backup<input id="restore-file" type="file" accept=".json"></label><button class="primary full">Save settings</button></form></div>
+        <div class="dashboard-grid analytics-row"><article class="panel"><div class="panel-heading"><div><span class="eyebrow">Estimated impact</span><h3>Environmental and financial value</h3></div></div><div id="impact-list" class="feedback-stats"></div></article><article class="panel"><div class="panel-heading"><div><span class="eyebrow">Recommended actions</span><h3>What to do next</h3></div></div><div id="recommendations-list"></div></article></div>
+        <article class="panel recent-panel"><div class="panel-heading"><div><span class="eyebrow">Audit trail</span><h3>Recent changes</h3></div></div><div id="audit-list"></div></article>
+      </section>
+    </main>
+  </div>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <script src="/app.js?v=20260822d"></script>
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js" async onload="initializeLoginQr()"></script>
+</body>
+</html>
