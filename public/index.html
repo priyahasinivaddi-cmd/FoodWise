@@ -13,7 +13,7 @@
 <body>
   <section id="login-screen" class="login-screen">
     <div class="login-home">
-      <div class="login-story"><div class="login-brand"><span class="brand-mark">F</span><strong>FoodWise</strong></div><span class="pill">AI-powered cafeteria sustainability</span><h2>Measure waste.<br>Improve every meal.</h2><p>FoodWise helps cafeterias classify waste, guide segregation, understand customer feedback and turn patterns into practical reduction actions.</p><div class="home-benefits"><div><span>01</span><strong>Identify</strong><small>Capture and classify food waste.</small></div><div><span>02</span><strong>Understand</strong><small>Connect waste with customer experience.</small></div><div><span>03</span><strong>Reduce</strong><small>Track actions and measurable results.</small></div></div><div class="sdg-home">SDG 12 · Responsible Consumption and Production</div></div>
+      <div class="login-story"><div class="login-brand"><span class="brand-mark">F</span><strong>FoodWise</strong></div><span class="pill">Cafeteria sustainability</span><h2>Measure waste.<br>Improve every meal.</h2><p>FoodWise helps cafeterias record waste details, guide segregation, understand customer feedback and turn patterns into practical reduction actions.</p><div class="home-benefits"><div><span>01</span><strong>Record</strong><small>Enter food-waste details manually.</small></div><div><span>02</span><strong>Understand</strong><small>Connect waste with customer experience.</small></div><div><span>03</span><strong>Reduce</strong><small>Track actions and measurable results.</small></div></div><div class="sdg-home">SDG 12 · Responsible Consumption and Production</div></div>
       <form id="login-form" class="login-card">
         <span class="eyebrow">Workspace access</span><h2 id="login-title">Welcome back</h2><p id="login-copy">Choose your role to continue.</p>
         <div id="role-login-step">
@@ -114,16 +114,10 @@
       </section>
 
       <section id="record" class="view">
-        <div class="stepper" aria-label="Recording progress"><div class="step active" data-step-indicator="1"><span>1</span> Capture</div><i></i><div class="step" data-step-indicator="2"><span>2</span> Confirm</div><i></i><div class="step" data-step-indicator="3"><span>3</span> Save</div></div>
+        <div class="stepper" aria-label="Recording progress"><div class="step active" data-step-indicator="1"><span>1</span> Enter details</div><i></i><div class="step" data-step-indicator="2"><span>2</span> Save</div></div>
         <article class="form-card">
-          <div id="capture-step" class="form-step active">
-            <span class="eyebrow">Step 1 of 3</span><h2>Photograph the waste batch</h2><p>Use one clear photo. Avoid including people or personal information.</p>
-            <label class="upload-zone" for="image-input"><input id="image-input" type="file" accept="image/*" capture="environment"><div id="upload-prompt"><span class="camera-icon">▣</span><strong>Take a photo or upload an image</strong><small>JPG, PNG or WEBP · up to 6 MB</small><span class="secondary-button">Choose image</span></div><img id="image-preview" alt="Selected food waste preview"></label>
-            <div class="form-actions"><button id="analyze-button" class="primary" disabled>Analyze waste <span>→</span></button></div>
-          </div>
-
-          <form id="entry-form" class="form-step">
-            <span class="eyebrow">Step 2 of 3</span><h2>Confirm the waste details</h2><p id="demo-note" class="notice">Demo classification — please review and correct the suggested values.</p>
+          <form id="entry-form" class="form-step active">
+            <span class="eyebrow">Step 1 of 2</span><h2>Enter waste details</h2><p>Record the waste batch manually for the most accurate results.</p>
             <div class="form-grid">
               <label>Food item<input name="foodItem" required placeholder="e.g. Cooked rice"></label>
               <label>Waste category<select name="category" required><option>Untouched surplus</option><option>Fruit & vegetable waste</option><option>Cooked food waste</option><option>Spoiled food</option><option>Non-food contamination</option></select></label>
@@ -137,10 +131,7 @@
               <label class="full">Action actually taken<select name="actionTaken" required><option value="">Select what staff did</option><option>Keep free from packaging and send to the approved composting or organic-waste processing stream.</option><option>Keep packaging separate and send the food to the approved organic-waste or composting stream.</option><option>Hold separately for staff food-safety assessment. Redistribute only when storage, handling and local food-safety requirements are satisfied.</option><option>Keep separate from usable food and send to the approved organic-waste stream; do not redistribute.</option><option>Separate packaging and other contaminants from food waste, then place each material in its approved collection stream.</option><option>Disposed as general waste</option><option>Other approved action</option></select></label>
               <label class="full">Staff notes<textarea name="notes" rows="2" placeholder="Optional observation or context"></textarea></label>
             </div>
-            <input type="hidden" name="confidence">
-            <input type="hidden" name="aiFoodItem">
-            <input type="hidden" name="aiCategory">
-            <div class="form-actions split"><button type="button" class="secondary-button" id="back-button">← Back</button><button type="submit" class="primary">Save record <span>→</span></button></div>
+            <div class="form-actions"><button type="submit" class="primary">Save record <span>→</span></button></div>
           </form>
 
           <div id="success-step" class="form-step success-state"><span class="success-check">✓</span><span class="eyebrow">Record saved</span><h2>Waste logged successfully</h2><p>The dashboard has been updated with this entry.</p><div class="form-actions centered"><button class="secondary-button" id="another-button">Record another</button><button class="primary" data-go-dashboard>View dashboard</button></div></div>

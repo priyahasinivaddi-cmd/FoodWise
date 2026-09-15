@@ -10,4 +10,4 @@ A basic full-stack MVP for recording and reducing food waste in institutional ca
 
 No package installation is required. Records are stored locally in `data/entries.json`.
 
-The classifier currently returns a clearly labelled demo result. Replace `/api/classify` with a real vision-model call when credentials are available.
+Waste batches are entered manually. The app provides segregation guidance from the selected waste category and source.

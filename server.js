@@ -354,15 +354,6 @@ function authUser(req) {
   return store.getSession(cookieToken(req));
 }
 
-async function classifyWithProvider(image) {
-  if (!process.env.VISION_API_URL || !process.env.VISION_API_KEY) return null;
-  const response = await fetch(process.env.VISION_API_URL, { method: "POST", headers: { "Content-Type": "application/json", "Authorization": `Bearer ${process.env.VISION_API_KEY}` }, body: JSON.stringify({ image, categories: ["Untouched surplus", "Fruit & vegetable waste", "Cooked food waste", "Spoiled food", "Non-food contamination"] }) });
-  if (!response.ok) throw new Error("The configured vision provider could not classify this image.");
-  const result = await response.json();
-  if (!result.foodItem || !result.category) throw new Error("The vision provider returned an invalid classification.");
-  return { foodItem: String(result.foodItem), category: String(result.category), confidence: Number(result.confidence) || 0, isDemo: false, action: recommendAction(String(result.category), "") };
-}
-
 function deny(res, roles) {
   return sendJson(res, 403, { error: `This action requires ${roles.join(" or ")} access.` });
 }
@@ -764,23 +755,6 @@ async function handleApi(req, res, pathname, searchParams) {
   if (req.method === "POST" && pathname === "/api/recommend") {
     const input = await readJson(req);
     return sendJson(res, 200, { action: recommendAction(String(input.category || ""), String(input.source || "")) });
-  }
-
-  if (req.method === "POST" && pathname === "/api/classify") {
-    const input = await readJson(req);
-    if (!input.image || !String(input.image).startsWith("data:image/")) {
-      return sendJson(res, 400, { error: "Please upload an image." });
-    }
-
-    const providerResult = await classifyWithProvider(input.image);
-    if (providerResult) return sendJson(res, 200, providerResult);
-    return sendJson(res, 200, {
-      foodItem: "Mixed food waste",
-      category: "Cooked food waste",
-      confidence: 72,
-      isDemo: true,
-      action: recommendAction("Cooked food waste", "")
-    });
   }
 
   return sendJson(res, 404, { error: "API route not found." });
