@@ -807,4 +807,18 @@ if (require.main === module) {
   });
 }
 
-module.exports = { getSummary, getFeedbackSummary, getDishComparison, filterFeedback, buildPdfReport, buildListPdf, validateEntry, recommendAction, server };
+// Vercel detects server.js as this project's function entry point. Export a
+// callable request handler while retaining the named helpers used by tests.
+function handler(req, res) {
+  return server.emit("request", req, res);
+}
+
+Object.assign(handler, {
+  getSummary,
+  getFeedbackSummary,
+  getDishComparison,
+  filterFeedback,
+  buildPdfReport,
+  buildListPdf,
+  validateEntry,
+  recommendAction,
