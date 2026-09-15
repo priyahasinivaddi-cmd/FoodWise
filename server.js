@@ -6,7 +6,9 @@ const store = require("./storage");
 
 const PORT = Number(process.env.PORT || 3000);
 const PUBLIC_DIR = path.join(__dirname, "public");
-const DATA_DIR = path.join(__dirname, "data");
+const DATA_DIR = process.env.VERCEL
+  ? path.join("/tmp", "foodwise")
+  : path.join(__dirname, "data");
 const DATA_FILE = path.join(DATA_DIR, "entries.json");
 const FEEDBACK_FILE = path.join(DATA_DIR, "feedback.json");
 const ACTIONS_FILE = path.join(DATA_DIR, "actions.json");

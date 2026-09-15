@@ -3,7 +3,12 @@ const path = require("node:path");
 const fs = require("node:fs");
 const crypto = require("node:crypto");
 
-const DATA_DIR = path.join(__dirname, "data");
+// Vercel's deployed filesystem is read-only. Its temporary directory is
+// writable for the lifetime of a serverless instance; local development keeps
+// using the checked-out data directory.
+const DATA_DIR = process.env.VERCEL
+  ? path.join("/tmp", "foodwise")
+  : path.join(__dirname, "data");
 fs.mkdirSync(DATA_DIR, { recursive: true });
 const db = new DatabaseSync(path.join(DATA_DIR, "foodwise.db"));
 db.exec(`
