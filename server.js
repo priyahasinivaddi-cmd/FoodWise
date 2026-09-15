@@ -822,3 +822,7 @@ Object.assign(handler, {
   buildListPdf,
   validateEntry,
   recommendAction,
+  server
+});
+
+module.exports = handler;
