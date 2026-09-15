@@ -386,6 +386,7 @@ async function handleApi(req, res, pathname, searchParams) {
     return res.end(JSON.stringify({ user }));
   }
 
+  if (req.method === "POST" && pathname === "/api/manager/register") { const input = await readJson(req), name = String(input.name || "").trim(), password = String(input.password || ""); if (name.length < 2 || password.length < 8) return sendJson(res, 400, { error: "Enter a name and a password of at least 8 characters." }); if (store.userNameExists(name, "manager")) return sendJson(res, 409, { error: "A manager account with this name already exists. Choose Login instead." }); const base = name.toLowerCase().replace(/[^a-z0-9]+/g, "").slice(0, 24) || "manager", usernames = new Set(store.listUsers().map(item => item.username)); let username = base, suffix = 2; while (usernames.has(username)) username = `${base}${suffix++}`; const user = store.createUser({ name, username, password, role: "manager" }), session = store.createSession(user); store.audit(user, "register", "user", user.id, { role: "manager" }); res.writeHead(201, { "Content-Type": "application/json; charset=utf-8", "Set-Cookie": `foodwise_session=${session.token}; HttpOnly; SameSite=Lax; Path=/; Max-Age=43200` }); return res.end(JSON.stringify({ user })); }
   if (req.method === "POST" && pathname === "/api/staff/register") {
     const input = await readJson(req);
     const name = String(input.name || "").trim();
