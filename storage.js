@@ -3,10 +3,10 @@ const path = require("node:path");
 const fs = require("node:fs");
 const crypto = require("node:crypto");
 
-// Vercel's deployed filesystem is read-only. Its temporary directory is
+// Vercel and Netlify deployed filesystems are read-only. Their temporary directory is
 // writable for the lifetime of a serverless instance; local development keeps
 // using the checked-out data directory.
-const DATA_DIR = process.env.VERCEL
+const DATA_DIR = process.env.VERCEL || process.env.NETLIFY
   ? path.join("/tmp", "foodwise")
   : path.join(__dirname, "data");
 fs.mkdirSync(DATA_DIR, { recursive: true });

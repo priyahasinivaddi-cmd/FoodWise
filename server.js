@@ -6,7 +6,7 @@ const store = require("./storage");
 
 const PORT = Number(process.env.PORT || 3000);
 const PUBLIC_DIR = path.join(__dirname, "public");
-const DATA_DIR = process.env.VERCEL
+const DATA_DIR = process.env.VERCEL || process.env.NETLIFY
   ? path.join("/tmp", "foodwise")
   : path.join(__dirname, "data");
 const DATA_FILE = path.join(DATA_DIR, "entries.json");
